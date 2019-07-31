@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given APIs return valid JSON when i render the app and wait for data to load should have done stuff 1`] = `
+<main>
+  <section
+    className="posts"
+  >
+    <article
+      className="post"
+    >
+      <h1>
+        Things are great
+      </h1>
+      <p>
+        Some text
+      </p>
+      <p
+        className="comment"
+      >
+        This post is rather misguided in my opinion
+      </p>
+      <p
+        className="comment"
+      >
+        Great post!
+      </p>
+    </article>
+    <article
+      className="post"
+    >
+      <h1>
+        It's all terrible
+      </h1>
+      <p>
+        Some text
+      </p>
+      No comments yet
+    </article>
+    <article
+      className="post"
+    >
+      <h1>
+        I'm starting to learn things
+      </h1>
+      <p>
+        Some text
+      </p>
+      No comments yet
+    </article>
+  </section>
+  <article
+    className="profile"
+  >
+    Profile
+    <div>
+      <h1>
+        andrew
+      </h1>
+    </div>
+  </article>
+</main>
+`;

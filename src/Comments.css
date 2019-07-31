@@ -1,0 +1,10 @@
+p.comment {
+
+    font-style: italic;
+
+}
+p.comment::before {
+
+    content: " - ";
+
+}

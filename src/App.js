@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer, useEffect } from 'react';
+import { AppStoreProvider } from "./AppStore";
+import Body from "./Body.js";
+import config from "./config";
+import RestClient from './agents/RestClient';
+
+const postsClient = new RestClient({ root: config.api.posts });
+const commentsClient = new RestClient({ root: config.api.comments });
+const profileClient = new RestClient({ root: config.api.profile });
+const initialState = { posts: {}, comments: {}, profile: {} };
+
+const seedStore = (client, dispatch, actionPrefix) =>
+  client.getJSON()
+    .then(data => dispatch({ type: `${actionPrefix}.DATA`, data }))
+    .catch(err => dispatch({ type: `${actionPrefix}.ERROR`, err }));
 
 function App() {
+
+  const [store, dispatch] = useReducer((state, action) => {
+
+    const actionType = (action.type || '').split('.');
+    const stateKey = actionType[0].toLowerCase();
+
+    switch (actionType[1]) {
+      case "DATA":
+        return { ...state, [stateKey]: { data: action.data } };
+      case "ERROR":
+        return { ...state, [stateKey]: { err: action.err } };
+      default:
+        throw new Error(`Unknown action type: ${JSON.stringify(action)}`);
+    }
+
+  }, initialState);
+
+  useEffect(() => {
+
+      seedStore(postsClient, dispatch, "POSTS");
+      seedStore(commentsClient, dispatch, "COMMENTS");
+      seedStore(profileClient, dispatch, "PROFILE");
+
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppStoreProvider value={store}>
+      <Body />
+    </AppStoreProvider>
   );
+
 }
 
 export default App;

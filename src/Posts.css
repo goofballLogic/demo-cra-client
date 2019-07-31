@@ -1,0 +1,12 @@
+.posts {
+    flex: 2;
+}
+article.post {
+    margin: 10px;
+    padding: 10px;
+    border: solid 1px silver;
+}
+article.post h1 {
+    line-height: 1;
+    margin-top: 0px;
+}

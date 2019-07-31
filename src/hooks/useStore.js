@@ -1,20 +1,8 @@
-import { useReducer, useEffect } from 'react';
-import config from "../config";
-import RestClient from '../agents/RestClient';
+import { useReducer } from 'react';
 
-const postsClient = new RestClient({ root: config.api.posts });
-const commentsClient = new RestClient({ root: config.api.comments });
-const profileClient = new RestClient({ root: config.api.profile });
-const initialState = { posts: {}, comments: {}, profile: {} };
+function useStore( initialState ) {
 
-const seedStore = (client, dispatch, actionPrefix) =>
-    client.getJSON()
-        .then(data => dispatch({ type: `${actionPrefix}.DATA`, data }))
-        .catch(err => dispatch({ type: `${actionPrefix}.ERROR`, err }));
-
-function useStore() {
-
-    const [store, dispatch] = useReducer((state, action) => {
+    return useReducer((state, action) => {
 
         const actionType = (action.type || '').split('.');
         const stateKey = actionType[0].toLowerCase();
@@ -29,16 +17,6 @@ function useStore() {
         }
 
     }, initialState);
-
-    useEffect(() => {
-
-        seedStore(postsClient, dispatch, "POSTS");
-        seedStore(commentsClient, dispatch, "COMMENTS");
-        seedStore(profileClient, dispatch, "PROFILE");
-
-    }, []);
-
-    return store;
 
 }
 

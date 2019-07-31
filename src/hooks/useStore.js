@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 
-function useStore( initialState ) {
+function useStore(initialState) {
 
     return useReducer((state, action) => {
 

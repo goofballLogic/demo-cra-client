@@ -8,8 +8,8 @@ const initialState = { posts: {}, comments: {}, profile: {} };
 
 function App() {
 
-  const [ store, dispatch ] = useStore( initialState );
-  useAPIdata( dispatch );
+  const [store, dispatch] = useStore(initialState);
+  useAPIdata(dispatch);
 
   return (
     <AppStoreProvider value={store}>

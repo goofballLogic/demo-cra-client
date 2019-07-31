@@ -13,7 +13,7 @@ async function seedStore(client, dispatch, actionPrefix) {
         const data = await client.getJSON()
         dispatch({ type: `${actionPrefix}.DATA`, data });
 
-    } catch( err ) {
+    } catch (err) {
 
         dispatch({ type: `${actionPrefix}.ERROR`, err });
 
@@ -21,7 +21,7 @@ async function seedStore(client, dispatch, actionPrefix) {
 
 }
 
-function useAPIdata( dispatch ) {
+function useAPIdata(dispatch) {
 
     useEffect(() => {
 
